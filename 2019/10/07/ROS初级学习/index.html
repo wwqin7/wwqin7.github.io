@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+<link rel="stylesheet" href="/css/main.css?v=7.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon.jpg?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.jpg?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.jpg?v=7.2.0">
+
+
+  <link rel="mask-icon" href="/images/favicon.jpg?v=7.2.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.2.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="Ubuntu 16.04 kinetic版本（这是一个有点混乱的笔记）">
+<meta name="keywords" content="study">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ROS初级学习">
+<meta property="og:url" content="http://yoursite.com/2019/10/07/ROS初级学习/index.html">
+<meta property="og:site_name" content="wwqin7">
+<meta property="og:description" content="Ubuntu 16.04 kinetic版本（这是一个有点混乱的笔记）">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-10-07T06:52:26.531Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ROS初级学习">
+<meta name="twitter:description" content="Ubuntu 16.04 kinetic版本（这是一个有点混乱的笔记）">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://yoursite.com/2019/10/07/ROS初级学习/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>ROS初级学习 | wwqin7</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">wwqin7</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+  
+  
+
+  
+
+  <a href="https://github.com/wwqin7" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewbox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a>
+
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/07/ROS初级学习/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="wwqin7">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="wwqin7">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">ROS初级学习
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-10-07 10:34:40 / 修改时间：14:52:26" itemprop="dateCreated datePublished" datetime="2019-10-07T10:34:40+08:00">2019-10-07</time>
+            </span>
+          
+
+          
+            
+
+            
+          
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+                 阅读次数： 
+                <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+              </span>
+            </span>
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Ubuntu 16.04 kinetic版本<br>（这是一个有点混乱的笔记）</p>
+<a id="more"></a>
+
+<p>目前处于入门阶段，很多内容直接从教程复制的，因为还不够熟悉。希望日后有机会完善，但我太懒了…</p>
+<h1 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h1><p>每次打开终端都要运行<code>source /opt/ros/indigo/setup.bash</code>，有时候还要求运行<code>source devel/setup.bash</code>，还没明白这样做的原因…以后再解决</p>
+<p>之后还要创建ROS工作空间和程序包</p>
+<h1 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h1><p>ROS Node：节点一个可执行文件,键盘控制小乌龟，键盘和小乌龟都是一个节点。<br>Topic：话题，节点间通信要通过发布消息到话题和订阅话题接收消息实现。<br>Messages：消息，ROS数据类型，通过话题发布？<br>Master：节点管理器，帮助节点找到彼此。</p>
+<h1 id="文件系统"><a href="#文件系统" class="headerlink" title="文件系统"></a>文件系统</h1><p>Packages: 软件包，是ROS应用程序代码的组织单元，每个软件包都可以包含程序库、可执行文件、脚本或者其它手动创建的东西。</p>
+<p>Manifest (package.xml): 清单，是对于’软件包’相关信息的描述,用于定义软件包相关元信息之间的依赖关系，这些信息包括版本、维护者和许可协议等。</p>
+<h2 id="命令工具"><a href="#命令工具" class="headerlink" title="命令工具"></a>命令工具</h2><p>rospack：获取软件包的有关信息，<code>rospack find [包名称]</code>。</p>
+<p>roscd：直接切换(cd)工作目录到某个软件包或者软件包集当中,<code>roscd [本地包名称[/子目录]]</code>。<br>和cd的区别？</p>
+<p><code>roscd log</code>:切换到ROS保存日记文件的目录下</p>
+<p>rosls: 允许你直接按软件包的名称而不是绝对路径执行ls命令（罗列目录）,<code>rosls [本地包名称[/子目录]]</code>。</p>
+<h2 id="其他命令"><a href="#其他命令" class="headerlink" title="其他命令"></a>其他命令</h2><p>许多命令都要求在新终端下运行…</p>
+<p><strong><code>roscore</code></strong>:主机+ rosout + 参数服务器,在运行所有ROS程序前首先要运行的命令。</p>
+<p>rospy = python 客户端库<br>roscpp = c++ 客户端库</p>
+<h3 id="ROS节点"><a href="#ROS节点" class="headerlink" title="ROS节点"></a>ROS节点</h3><p><strong>rosnode</strong>:显示当前运行的ROS节点信息<br><code>rosnode list</code>列出活跃的节点。rosout，因为这个节点用于收集和记录节点调试输出信息，所以它总是在运行的。</p>
+<p>rosnode info：命令返回的是关于一个特定节点的信息，如<code>rosnode info /rosout</code>。</p>
+<p><strong>rosrun</strong>：允许使用包名直接运行一个包内的节点(而不需要知道这个包的路径)。<br><code>rosrun [package_name] [node_name]</code></p>
+<h3 id="ROS话题"><a href="#ROS话题" class="headerlink" title="ROS话题"></a>ROS话题</h3><p>rqt_graph：能够创建一个显示当前系统运行情况的动态图形。<br><code>rosrun rqt_graph rqt_graph</code></p>
+<p>rostopic：获取有关ROS话题的信息。<br><code>rostopic echo [topic]</code>：显示在某个话题上发布的数据。</p>
+<p><code>rostopic list</code>能够列出所有当前订阅和发布的话题。</p>
+<h3 id="ROS消息"><a href="#ROS消息" class="headerlink" title="ROS消息"></a>ROS消息</h3><p><code>rostopic type [topic]</code>:查看所发布话题的消息类型。</p>
+<p>rosmsg命令来查看消息的详细情况<br><code>rosmsg show [上述指令的类型结果]</code></p>
+<h3 id="ROS话题和消息的结合"><a href="#ROS话题和消息的结合" class="headerlink" title="ROS话题和消息的结合"></a>ROS话题和消息的结合</h3><p><strong>rostopic pub</strong>:可以把数据发布到当前某个正在广播的话题上。<br><code>rostopic pub [topic] [msg_type] [args]</code>,如<code>rostopic pub -1 /turtle1/cmd_vel geometry_msgs/Twist -- &#39;[2.0, 0.0, 0.0]&#39; &#39;[0.0, 0.0, 1.8]&#39;</code></p>
+<p>rostopic hz:查看数据发布的频率。<br><code>rostopic hz [topic]</code>,如<code>rostopic hz /turtle1/pose</code><br>也可以结合rostopic type和rosmsg show命令来获取关于某个话题的更深层次的信息:·<code>rostopic type /turtle1/cmd_vel | rosmsg show</code></p>
+<p>rqt_plot:实时显示一个发布到某个话题上的数据变化图形。<br><code>rosrun rqt_plot rqt_plot</code></p>
+<h3 id="ROS服务和参数"><a href="#ROS服务和参数" class="headerlink" title="ROS服务和参数"></a>ROS服务和参数</h3><p><strong>rosservice</strong>：可以很轻松的使用ROS客户端/服务器框架提供的服务</p>
+<p><code>rosservice list</code>                        输出可用服务的信息<br><code>rosservice call [service] [args]</code>       调用带参数的服务<br><code>rosservice type [service]</code>              输出服务类型<br><code>rosservice find</code>                        依据类型寻找服务<br><code>rosservice uri</code>                         输出服务的ROSRPC uri</p>
+<p><strong>rosparam</strong>：存储并操作ROS参数服务器（Parameter Server）上的数据。</p>
+<p><code>rosparam list</code>                             列出参数名<br><code>rosparam set [param_name]</code>                 设置参数<br><code>rosparam get [param_name]</code>                 获取参数<br><code>rosparam get /</code> 显示参数服务器上的所有内容<br><code>rosparam load [file_name] [namespace]</code>     从文件读取参数<br><code>rosparam dump [file_name]</code>                 向文件中写入参数<br><code>rosparam delete</code>                           删除参数</p>
+<h3 id="调试"><a href="#调试" class="headerlink" title="调试"></a>调试</h3><p><strong>rqt_console</strong>：属于ROS日志框架(logging framework)的一部分，用来显示节点的输出信息。<br><code>rosrun rqt_console rqt_console</code></p>
+<p>rqt_logger_level：允许我们修改节点运行时输出信息的日志等级（logger levels）（包括 DEBUG、WARN、INFO和ERROR）。<br><code>rosrun rqt_logger_level rqt_logger_level</code></p>
+<p><strong>roslaunch</strong>：启动定义在launch文件中的多个节点。<br><code>roslaunch [package] [filename.launch]</code></p>
+<h3 id="编辑"><a href="#编辑" class="headerlink" title="编辑"></a>编辑</h3><p><strong>rosed</strong>：直接通过package名来获取到待编辑的文件而无需指定该文件的存储路径。<br><code>rosed [package_name] [filename]</code></p>
+<p>rosed默认的编辑器是vim。若要将其他的编辑器设置成默认的，需要修改<code>~/.bashrc</code> 文件，增加如下语句:<br><code>export EDITOR=&#39;emacs -nw&#39;</code><br>注意: .bashrc文件的改变，只会在新的终端才有效。已经打开的终端不受环境变量的影响。<br>打开一个新的终端，看看那是否定义了EDITOR:<code>echo $EDITOR</code></p>
+<h1 id="创建、编译ROS程序包"><a href="#创建、编译ROS程序包" class="headerlink" title="创建、编译ROS程序包"></a>创建、编译ROS程序包</h1><p>一个程序包要想称为catkin程序包必须符合以下<strong>要求</strong>：</p>
+<p>该程序包必须包含catkin compliant package.xml文件</p>
+<p>这个package.xml文件提供有关程序包的元信息。<br>程序包必须包含一个catkin 版本的CMakeLists.txt文件，而Catkin metapackages中必须包含一个对CMakeList.txt文件的引用。</p>
+<p>每个目录下只能有一个程序包。<br>这意味着在同一个目录下不能有嵌套的或者多个程序包存在</p>
+<p><strong>创建程序包</strong> <code>catkin_create_pkg &lt;package_name&gt; [depend1] [depend2] [depend3]</code><br>后可添加依赖关系，存在依赖包</p>
+<p>自定义程序包<br>先修改package.xml<br>编译程序包<code>catkin_make</code><br>（不太明白利用和不利用catkin_make的教程…）</p>
+<h1 id="理解节点、话题、服务和参数，进行调试、编辑"><a href="#理解节点、话题、服务和参数，进行调试、编辑" class="headerlink" title="理解节点、话题、服务和参数，进行调试、编辑"></a>理解节点、话题、服务和参数，进行调试、编辑</h1><p>命令工具的使用</p>
+<h1 id="创建ROS消息和服务"><a href="#创建ROS消息和服务" class="headerlink" title="创建ROS消息和服务"></a>创建ROS消息和服务</h1><p>消息(msg): msg文件就是一个描述ROS中所使用消息类型的简单文本。它们会被用来生成不同语言的源代码。<br>服务(srv): 一个srv文件描述一项服务。它包含两个部分：请求和响应。</p>
+<h2 id="msg"><a href="#msg" class="headerlink" title="msg"></a>msg</h2><p><code>echo &quot;int64 num&quot; &gt; msg/Num.msg</code>，向Num.msg文件增加消息。<br>貌似想增加多条数据，多次仿造执行上述的命令会覆盖文件内容，最后还是只有一行…<br>多行输入：<br><code>cat&gt;filename.txt&lt;&lt;EOF
+hello world
+代码改变世界 Coding Changes the World
+100 \$
+她买了张彩票，中了3,300多万美元。
+She bought a lottery ticket and won more than\$ 33 million.
+EOF</code></p>
+<p>修改package.xml和CMakeLists.txt<br>具体怎么改还得看教程…</p>
+<p><code>rosmsg show [message type]</code>检查ROS是否能够识消息<br><code>rosmsg show beginner_tutorials/Num</code>,如果忘记了消息所在的package，你也可以省略掉package名：<code>rosmsg show Num</code></p>
+<h2 id="srv"><a href="#srv" class="headerlink" title="srv"></a>srv</h2><p>从其他的package中复制一个服务：<code>roscp [package_name] [file_to_copy_path] [copy_path]</code></p>
+<p>修改package.xml和CMakeLists.txt</p>
+<p><code>rossrv show &lt;service type&gt;</code>检查ROS是否能够识该服务</p>
+<h1 id="一个简单的消息发布器和订阅器-Python"><a href="#一个简单的消息发布器和订阅器-Python" class="headerlink" title="一个简单的消息发布器和订阅器 (Python)"></a>一个简单的消息发布器和订阅器 (Python)</h1><h2 id="编写"><a href="#编写" class="headerlink" title="编写"></a>编写</h2><p>在scripts文件夹中添加talk.py（教程下载的例子<code>wget https://raw.github.com/ros/ros_tutorials/kinetic-devel/rospy_tutorials/001_talker_listener/talker.py</code>），并修改权限使其可执行<code>chmod +x talker.py</code>。<br>listen.py同上。</p>
+<p>之后在catkiin_ws文件夹中进行编译<code>catkin_make</code>。</p>
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><p>运行<code>roscore</code>,还要sourcecatkin工作空间下的setup.sh文件<code>source ./devel/setup.bash</code>，之后启动发布器和订阅器。<br>  rosrun beginner_tutorials talker      (C++)<br>  rosrun beginner_tutorials talker.py   (Python)<br>  rosrun beginner_tutorials listener.py  (Python) </p>
+<h1 id="简单的服务器和客户端"><a href="#简单的服务器和客户端" class="headerlink" title="简单的服务器和客户端"></a>简单的服务器和客户端</h1><p>编写Service Node和Client Node的python文件，添加可执行权限。<br>在catkin工作空间编译，两个终端分别rosrun运行py文件进行测试。<br>一个终端：<br>  cd ~/catkin_ws<br>  . devel/setup.bash<br>  rosrun beginner_tutorials add_two_ints_server.py<br>另一个：<br>  cd ~/catkin_ws<br>  . devel/setup.bash<br>  rosrun beginner_tutorials add_two_ints_client.py<br>带参数：<br>  rosrun beginner_tutorials add_two_ints_client.py 1 3  (Python)</p>
+<h1 id="录制数据与回放"><a href="#录制数据与回放" class="headerlink" title="录制数据与回放"></a>录制数据与回放</h1><p>  rosbag record -a<br>在录制的目录下运行命令，并附加-a选项，该选项表示将当前发布的所有话题数据都录制保存到一个bag文件中。</p>
+<p>  rosbag info <your bagfile><br>在bag文件所在的目录下执行以下命令，检查看bag文件中的内容而无需回放出来。</your></p>
+<p>  rosbag play <your bagfile><br>回放bag文件以再现系统运行过程。<br>有一个参数选项-r，它允许你通过设定一个参数来改变消息发布速率。如果你执行：<code>rosbag play -r 2 &lt;your bagfile&gt;</code>,轨迹应该是相当于当你以两倍的速度通过按键发布控制命令时产生的轨迹。</your></p>
+<p>录制数据子集<br>  rosbag record -O subset /turtle1/command_velocity /turtle1/pose<br>上述命令中的-O参数告诉rosbag record将数据记录保存到名为subset.bag的文件中，同时后面的话题参数告诉rosbag record只能录制这两个指定的话题。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        
+          
+        
+        <div class="post-tags">
+          
+            <a href="/tags/study/" rel="tag"># study</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/08/14/Mobility-Increases-Localizability-A-Survey-on-Wireless-Indoor/" rel="next" title="Mobility Increases Localizability: A Survey on Wireless Indoor">
+                <i class="fa fa-chevron-left"></i> Mobility Increases Localizability: A Survey on Wireless Indoor
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="wwqin7">
+            
+              <p class="site-author-name" itemprop="name">wwqin7</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-name">标签</span>
+                  
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/wwqin7" title="GitHub &rarr; https://github.com/wwqin7" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#环境配置"><span class="nav-number">1.</span> <span class="nav-text">环境配置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#概念"><span class="nav-number">2.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#文件系统"><span class="nav-number">3.</span> <span class="nav-text">文件系统</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#命令工具"><span class="nav-number">3.1.</span> <span class="nav-text">命令工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他命令"><span class="nav-number">3.2.</span> <span class="nav-text">其他命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ROS节点"><span class="nav-number">3.2.1.</span> <span class="nav-text">ROS节点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ROS话题"><span class="nav-number">3.2.2.</span> <span class="nav-text">ROS话题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ROS消息"><span class="nav-number">3.2.3.</span> <span class="nav-text">ROS消息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ROS话题和消息的结合"><span class="nav-number">3.2.4.</span> <span class="nav-text">ROS话题和消息的结合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ROS服务和参数"><span class="nav-number">3.2.5.</span> <span class="nav-text">ROS服务和参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#调试"><span class="nav-number">3.2.6.</span> <span class="nav-text">调试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编辑"><span class="nav-number">3.2.7.</span> <span class="nav-text">编辑</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#创建、编译ROS程序包"><span class="nav-number">4.</span> <span class="nav-text">创建、编译ROS程序包</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#理解节点、话题、服务和参数，进行调试、编辑"><span class="nav-number">5.</span> <span class="nav-text">理解节点、话题、服务和参数，进行调试、编辑</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#创建ROS消息和服务"><span class="nav-number">6.</span> <span class="nav-text">创建ROS消息和服务</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#msg"><span class="nav-number">6.1.</span> <span class="nav-text">msg</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#srv"><span class="nav-number">6.2.</span> <span class="nav-text">srv</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#一个简单的消息发布器和订阅器-Python"><span class="nav-number">7.</span> <span class="nav-text">一个简单的消息发布器和订阅器 (Python)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#编写"><span class="nav-number">7.1.</span> <span class="nav-text">编写</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试"><span class="nav-number">7.2.</span> <span class="nav-text">测试</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#简单的服务器和客户端"><span class="nav-number">8.</span> <span class="nav-text">简单的服务器和客户端</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#录制数据与回放"><span class="nav-number">9.</span> <span class="nav-text">录制数据与回放</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">wwqin7</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.2.0</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+  
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.2.0"></script>
+
+  <script src="/js/motion.js?v=7.2.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.2.0"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.2.0"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.2.0"></script>
+<script src="/js/post-details.js?v=7.2.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.2.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
